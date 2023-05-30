@@ -1,0 +1,7 @@
+#formPengabdian:nth-child(odd) {
+    background-color: rgba(130, 130, 130, 0.1);
+}
+
+.skimBox:last-child {
+    border-bottom: 2px solid black !important;
+}

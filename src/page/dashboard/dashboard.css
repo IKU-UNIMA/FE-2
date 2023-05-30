@@ -1,0 +1,33 @@
+.iku-1 {
+    overflow-y: hidden;
+}
+
+.popupIku.active {
+    transition: height 1s;
+    background-color: white;
+    display: block;
+    height: 80vh;
+    width: 70%;
+    opacity: 1;
+    overflow-y: scroll;
+}
+
+.popupIku.active div {
+    margin: 10px 10px;
+}
+
+.popupIku {
+    width: 70%;
+    height: 0%;
+    transition: height 1s;
+    background-color: white;
+    position: absolute;
+    overflow: hidden;
+    display: block;
+    top: 0;
+    /* opacity: 0; */
+}
+
+.popupIku div {
+    margin: 10px 10px;
+}
