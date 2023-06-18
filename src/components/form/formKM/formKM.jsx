@@ -11,6 +11,7 @@ import axiosInstance from "../../../networks/api";
 export default function FormKM() {
     const navigate = useNavigate()
     const [faculties, setFaculties] = useState(null)
+    const [errors, setErrors] = useState({ semester: "", nama: "", tingkat_prestasi: "", penyelenggara: "", peringkat: "", biaya_kuliah: "", dosen_pembimbing: "", kategori_program: "", ipk: "", ips: "", jenis_anggota: "", judul_aktivitas_mahasiswa: "", jumlah_sks: "", kontrak_krs: "", no_sk_tugas: "", status_keikutsertaan: "", tanggal_sk_tugas: "", total_sks: "" })
     const identify = "create"
 
     const initialValue = {
@@ -88,9 +89,9 @@ export default function FormKM() {
 
         axiosInstance
             .post("/kampus-merdeka", {
-                id_semester: parseInt(datas.smester),
-                id_dosen_pembimbing: parseInt(datas.dosenPembimbing),
-                id_kategori_program: parseInt(datas.kategoriProgram),
+                id_semester: datas.smester == "" ? "" : parseInt(datas.smester),
+                id_dosen_pembimbing: datas.dosenPembimbing == "" ? "" : parseInt(datas.dosenPembimbing),
+                id_kategori_program: datas.kategoriProgram == "" ? "" : parseInt(datas.kategoriProgram),
                 status_keikutsertaan: datas.statusKeikutsertaan,
                 kontrak_krs: datas.kontrakKrs,
                 judul_aktivitas_mahasiswa: datas.judulAktivitasMahasiswa,
@@ -113,7 +114,7 @@ export default function FormKM() {
                     Swal.fire({
                         toast: true,
                         icon: "success",
-                        title: "Successfully create data pengabdian",
+                        title: "Successfully create data Kampus Merdeka",
                         animation: false,
                         background: "#222834",
                         color: "#18B015",
@@ -131,7 +132,65 @@ export default function FormKM() {
                     });
                 }
             })
-            .catch((err) => console.log(err))
+            .catch((err) => {
+                setErrors({
+                    ...errors,
+                    semester: submitData.smester == "" ? err.response.data.errors.id_semester : "",
+                    nama: submitData.nama == "" ? err.response.data.errors.nama : "",
+                    tingkat_prestasi: submitData.tingkatPrestasi == "" ? err.response.data.errors.tingkat_prestasi : "",
+                    penyelenggara: submitData.penyelenggara == "" ? err.response.data.errors.penyelenggara : "",
+                    peringkat: submitData.peringkat == "" ? err.response.data.errors.peringkat : "",
+                    biaya_kuliah: submitData.biayaKuliah == "" ? err.response.data.errors.biaya_kuliah : "",
+                    dosen_pembimbing: submitData.dosenPembimbing == "" ? err.response.data.errors.id_dosen_pembimbing : "",
+                    kategori_program: submitData.kategoriProgram == "" ? err.response.data.errors.id_kategori_program : "",
+                    ipk: submitData.ipk == "" ? err.response.data.errors.ipk : "",
+                    ips: submitData.ips == "" ? err.response.data.errors.ips : "",
+                    jenis_anggota: submitData.jenisAnggota == "" ? err.response.data.errors.jenis_anggota : "",
+                    judul_aktivitas_mahasiswa: submitData.judulAktivitasMahasiswa == "" ? err.response.data.errors.judul_aktivitas_mahasiswa : "",
+                    jumlah_sks: submitData.jumlahSks == "" ? err.response.data.errors.jumlah_sks : "",
+                    kontrak_krs: submitData.kontrakKrs == "" ? err.response.data.errors.kontrak_krs : "",
+                    no_sk_tugas: submitData.noSkTugas == "" ? err.response.data.errors.no_sk_tugas : "",
+                    status_keikutsertaan: submitData.statusKeikutsertaan == "" ? err.response.data.errors.status_keikutsertaan : "",
+                    tanggal_sk_tugas: submitData.tanggalSkTugas == "" ? err.response.data.errors.tanggal_sk_tugas : "",
+                    total_sks: submitData.totalSks == "" ? err.response.data.errors.total_sks : "",
+                })
+                if (err.response.data.errors.message == "surat tugas tidak boleh kosong")
+                    Swal.fire({
+                        toast: true,
+                        icon: "error",
+                        title: err.response.data.errors.message,
+                        animation: false,
+                        background: "#222834",
+                        color: "#DE1508",
+                        position: "bottom-end",
+                        showConfirmButton: false,
+                        timer: 4000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener("mouseenter", Swal.stopTimer);
+                            toast.addEventListener("mouseleave", Swal.resumeTimer);
+                        },
+                    });
+                else {
+                    Swal.fire({
+                        toast: true,
+                        icon: "error",
+                        title: "periksa kembali",
+                        animation: false,
+                        background: "#222834",
+                        color: "#DE1508",
+                        position: "bottom-end",
+                        showConfirmButton: false,
+                        timer: 4000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener("mouseenter", Swal.stopTimer);
+                            toast.addEventListener("mouseleave", Swal.resumeTimer);
+                        },
+                    });
+                }
+                console.log(err)
+            })
         // setSubmitData(initialValue)
     }
 
@@ -152,21 +211,21 @@ export default function FormKM() {
             </div>
 
             <form>
-                <Smester onHandleInput={onHandleInput} datas={submitData} identify={identify} />
-                <DosenPembimbing onHandleInput={onHandleInput} datas={submitData} identify={identify} />
-                <KategoriProgram onHandleInput={onHandleInput} datas={submitData} identify={identify} />
-                <StatusKeikutsertaan onHandleInput={onHandleInput} datas={submitData} identify={identify} />
-                <KontrakKrs onHandleInput={onHandleInput} datas={submitData} identify={identify} />
-                <JudulAktivitasMahasiswa onHandleInput={onHandleInput} datas={submitData} identify={identify} />
-                <NoSkTugas onHandleInput={onHandleInput} datas={submitData} identify={identify} />
-                <TanggalSkTugas onHandleInput={onHandleInput} datas={submitData} identify={identify} />
-                <JenisAnggota onHandleInput={onHandleInput} datas={submitData} identify={identify} />
-                <Ips onHandleInput={onHandleInput} datas={submitData} identify={identify} />
-                <Ipk onHandleInput={onHandleInput} datas={submitData} identify={identify} />
-                <JumlahSks onHandleInput={onHandleInput} datas={submitData} identify={identify} />
-                <TotalSks onHandleInput={onHandleInput} datas={submitData} identify={identify} />
-                <BiayaKuliah onHandleInput={onHandleInput} datas={submitData} identify={identify} />
-                <SuratTugas onHandleInput={onHandleInput} datas={submitData} identify={identify} />
+                <Smester onHandleInput={onHandleInput} datas={submitData} identify={identify} error={errors} />
+                <DosenPembimbing onHandleInput={onHandleInput} datas={submitData} identify={identify} error={errors} />
+                <KategoriProgram onHandleInput={onHandleInput} datas={submitData} identify={identify} error={errors} />
+                <StatusKeikutsertaan onHandleInput={onHandleInput} datas={submitData} identify={identify} error={errors} />
+                <KontrakKrs onHandleInput={onHandleInput} datas={submitData} identify={identify} error={errors} />
+                <JudulAktivitasMahasiswa onHandleInput={onHandleInput} datas={submitData} identify={identify} error={errors} />
+                <NoSkTugas onHandleInput={onHandleInput} datas={submitData} identify={identify} error={errors} />
+                <TanggalSkTugas onHandleInput={onHandleInput} datas={submitData} identify={identify} error={errors} />
+                <JenisAnggota onHandleInput={onHandleInput} datas={submitData} identify={identify} error={errors} />
+                <Ips onHandleInput={onHandleInput} datas={submitData} identify={identify} error={errors} />
+                <Ipk onHandleInput={onHandleInput} datas={submitData} identify={identify} error={errors} />
+                <JumlahSks onHandleInput={onHandleInput} datas={submitData} identify={identify} error={errors} />
+                <TotalSks onHandleInput={onHandleInput} datas={submitData} identify={identify} error={errors} />
+                <BiayaKuliah onHandleInput={onHandleInput} datas={submitData} identify={identify} error={errors} />
+                <SuratTugas onHandleInput={onHandleInput} datas={submitData} identify={identify} error={errors} />
             </form>
 
             <div className="mt-4">

@@ -73,10 +73,10 @@ export default function Navbar({ showAddIkuPopup }) {
 
                         <div className={dropDown === false ? "hidden" : "flex flex-col left-0 absolute w-[100%] top-[90%] bg-white border-[1px] rounded-b-md"}>
                             <div className="flex flex-col">
-                                <div className="p-1">
+                                {/* <div className="p-1">
                                     <PrimaryButton textButton="Profile" />
-                                </div>
-                                <div onClick={onHandleLogout} className="p-1 pt-0">
+                                </div> */}
+                                <div onClick={onHandleLogout} className="p-1">
                                     <DangerButton textButton="Logout" />
                                 </div>
                             </div>

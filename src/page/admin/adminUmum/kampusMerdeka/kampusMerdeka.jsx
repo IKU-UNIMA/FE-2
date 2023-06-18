@@ -11,6 +11,7 @@ import SecondaryButton from "../../../../components/button/SecondaryButton";
 import Pagination from "../../../../components/pagination/pagination";
 import ReactPaginate from 'react-paginate';
 import LoadingSkeleton from "../../../../components/loadingSkeleton/loading";
+import Swal from "sweetalert2";
 
 export default function KampusMerdekaAdminUmum() {
     const navigate = useNavigate()
@@ -19,6 +20,7 @@ export default function KampusMerdekaAdminUmum() {
     const [filtered, setFiltered] = useState(initialValueReset)
     const [currentPage, setCurrentPage] = useState(1)
     const [loading, setLoading] = useState(true)
+    const [triger, settriger] = useState(false)
 
     useEffect(() => {
         axiosInstance
@@ -49,7 +51,7 @@ export default function KampusMerdekaAdminUmum() {
             })
             .then((res) => setSmester(res.data.data))
             .catch((err) => console.log(err))
-    }, [filtered])
+    }, [filtered, triger])
 
     const [data, setData] = useState([])
     const [page, setPage] = useState([])
@@ -134,6 +136,54 @@ export default function KampusMerdekaAdminUmum() {
         setData(dataFromApi)
     }
 
+    const onDeleteKampusMerdeka = (e, id) => {
+        e.preventDefault()
+        console.log(id)
+        Swal.fire({
+            title: 'Are you sure?',
+            // text: "You won't be able to revert this!",
+            icon: 'warning',
+            background: "#151921",
+            color: "#fff",
+            showCancelButton: true,
+            confirmButtonColor: "#FF3D00",
+            confirmButtonText: 'Delete'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axiosInstance
+                    .delete(`/kampus-merdeka/${id}`, {
+                        headers: {
+                            "Content-Type": "multipart/form-data",
+                        }
+                    })
+                    .then((res) => {
+                        settriger(!triger)
+                        if (res.status === 200) {
+                            Swal.fire({
+                                toast: true,
+                                icon: "success",
+                                title: "Delete Data Kampus Merdeka Successfully",
+                                animation: false,
+                                background: "#222834",
+                                color: "#18B015",
+                                position: "bottom-end",
+                                showConfirmButton: false,
+                                timer: 4000,
+                                timerProgressBar: true,
+                                didOpen: (toast) => {
+                                    toast.addEventListener("mouseenter", Swal.stopTimer);
+                                    toast.addEventListener("mouseleave", Swal.resumeTimer);
+                                },
+                            });
+                        }
+                        // window.location.reload();
+                        console.log(res)
+                    })
+                    .catch((err) => console.log(err))
+            }
+        })
+    }
+
     console.log("data", data)
 
     return (
@@ -163,66 +213,70 @@ export default function KampusMerdekaAdminUmum() {
                                     </div>
                                 </div> */}
                                 <div className="flex justify-between">
-                                    <div className="flex flex-col w-full mr-1">
-                                        <label className='text-[14px] font-medium tracking-[1px]'>NIM</label>
-                                        <input placeholder="Nim" className='w-full bg-white border-2 outline-none border-black px-2 py-1 pb-2 mt-1 rounded-md' type="text" name="nim" value={filtered.nim} onChange={(e) => setFiltered({ ...filtered, nim: e.target.value })} />
-                                    </div>
-                                    <div className="relative w-full mr-1">
-                                        <label className='text-[14px] font-medium tracking-[1px]'>Prodi</label>
-                                        <div id='mitraDD' onClick={(e) => onHandlemitra_litabmas(e)} className={mitra_litabmas.mitraDD === true ? "flex relative justify-between bg-white bg-white border-2 border-black outline-none px-2 py-1 pb-2 rounded-t-md" : 'flex justify-between bg-white border-2 border-black outline-none px-2 py-1 pb-2 rounded-md'}>
-                                            {
-                                                mitra_litabmas.mitra === "" ? (
-                                                    <>
-                                                        <div className=''>Pilih</div>
-                                                    </>
-                                                ) : (
-                                                    <>
-                                                        <div>{mitra_litabmas.mitra}</div>
-                                                    </>
-                                                )
-                                            }
-                                            <div className='my-auto'>
-                                                <FiChevronDown />
+                                    <div className="flex justify-between w-[80%]">
+                                        <div className="flex flex-col w-1/3 mr-1">
+                                            <label className='text-[14px] font-medium tracking-[1px]'>NIM</label>
+                                            <input placeholder="Nim" className='w-full bg-white border-2 border-black outline-none px-2 py-1 pb-2 mt-1 rounded-md' type="text" name="nim" value={filtered.nim} onChange={(e) => setFiltered({ ...filtered, nim: e.target.value })} />
+                                        </div>
+                                        <div className="z-20 relative w-1/3 mr-1">
+                                            <label className='text-[14px] font-medium tracking-[1px]'>Prodi</label>
+                                            <div id='mitraDD' onClick={(e) => onHandlemitra_litabmas(e)} className={mitra_litabmas.mitraDD === true ? "z-10 flex relative justify-between border-2 border-black outline-none px-2 py-1 pb-2 rounded-t-md" : 'flex justify-between bg-white border-2 border-black outline-none px-2 py-1 pb-2 rounded-md'}>
+                                                {
+                                                    mitra_litabmas.mitra === "" ? (
+                                                        <>
+                                                            <div className=''>Pilih</div>
+                                                        </>
+                                                    ) : (
+                                                        <>
+                                                            <div id='mitraDD' className="relative inline-block truncate">{mitra_litabmas.mitra}</div>
+                                                        </>
+                                                    )
+                                                }
+                                                <div className='my-auto'>
+                                                    <FiChevronDown />
+                                                </div>
+                                            </div>
+                                            <div onChange={(e) => onHandlemitra_litabmas(e)} className={mitra_litabmas.mitraDD === true ? "z-10 absolute bg-white w-full border-2 border-black p-2 rounded-md rounded-t-sm " : 'hidden'}>
+                                                <input type="search" placeholder="search" value={mitra_litabmas.search} id="search" className="w-full border-2 border-black px-2 py-1 pb-2 rounded-md relative inline-block truncate" />
+                                                <ul className="h-[200px] overflow-y-auto ">
+                                                    {
+                                                        mitra_litabmas.search.length === 0 ? <label>please enter 1 or more character</label> :
+                                                            !filtermitra_litabmas.length ? <div className='flex w-[100%] h-[100%] text-[25px] items-center justify-center'>No Result Found!</div> :
+                                                                filtermitra_litabmas.map(dataMitra => {
+                                                                    return <li className='skimBox border-2 border-black border-b-0 py-1 px-2 ' value={dataMitra.id} id='mitra' name="mitra" onClick={(i, e) => {
+                                                                        onHandlemitra_litabmas(i, e)
+                                                                        setFiltered({ ...filtered, prodi: dataMitra.id })
+                                                                    }}>{dataMitra.nama}</li>
+                                                                })
+                                                    }
+                                                </ul>
                                             </div>
                                         </div>
-                                        <div onChange={(e) => onHandlemitra_litabmas(e)} className={mitra_litabmas.mitraDD === true ? "z-10 absolute bg-white w-full border-2 border-black p-2 rounded-md rounded-t-sm" : 'hidden'}>
-                                            <input type="search" placeholder="search" value={mitra_litabmas.search} id="search" className="w-full border-2 border-black px-2 py-1 pb-2 rounded-md" />
-                                            <ul>
-                                                {
-                                                    mitra_litabmas.search.length === 0 ? <label>please enter 1 or more character</label> :
-                                                        !filtermitra_litabmas.length ? <div className='flex w-[100%] h-[100%] text-[20px] items-center justify-center'>No Result Found!</div> :
-                                                            filtermitra_litabmas.map(dataMitra => {
-                                                                return <li className='skimBox border-2 border-black border-b-0 py-1 px-2' value={dataMitra.id} id='mitra' name="mitra" onClick={(i, e) => {
-                                                                    onHandlemitra_litabmas(i, e)
-                                                                    setFiltered({ ...filtered, prodi: dataMitra.id })
-                                                                }}>{dataMitra.nama}</li>
-                                                            })
+
+                                        <div className="flex flex-col w-1/3 mr-1">
+                                            <label className='text-[14px] font-medium tracking-[1px]'>Smester</label>
+                                            <select onChange={(e) => setFiltered({ ...filtered, semester: e.target.value })} value={filtered.semester} name="smester" className='w-full bg-white border-2 border-black outline-none px-2 py-1 pb-2 mt-1 rounded-md'>
+                                                <option value={null}>Pilih</option>
+                                                {smester?.map((data) => (
+                                                    <>
+                                                        <option value={parseInt(data?.id)}>{data.nama}</option>
+                                                    </>
+                                                ))
                                                 }
-                                            </ul>
+                                            </select>
                                         </div>
                                     </div>
 
-                                    <div className="flex flex-col w-full mr-1">
-                                        <label className='text-[14px] font-medium tracking-[1px]'>Smester</label>
-                                        <select onChange={(e) => setFiltered({ ...filtered, semester: e.target.value })} value={filtered.semester} name="smester" className='w-full bg-white border-2 border-black outline-none px-2 py-1 pb-2 mt-1 rounded-md'>
-                                            <option value={null}>Pilih</option>
-                                            {smester?.map((data) => (
-                                                <>
-                                                    <option value={parseInt(data?.id)}>{data.nama}</option>
-                                                </>
-                                            ))
-                                            }
-                                        </select>
-                                    </div>
+                                    <div className="flex justify-between w-[20%]">
+                                        <div onClick={(e) => onHandleReset(e)} className="flex flex-col items-center justify-center my-auto w-full h-[100%]">
+                                            <label className="text-white">Reset</label>
+                                            <SecondaryButton textButton="Reset" />
+                                        </div>
 
-                                    <div onClick={(e) => onHandleReset(e)} className="flex flex-col items-center justify-center my-auto w-[30%] h-[100%]">
-                                        <label className="text-white">Reset</label>
-                                        <SecondaryButton textButton="Reset" />
-                                    </div>
-
-                                    <div onClick={(e) => onHandleSearch(e)} className="flex flex-col items-center justify-center my-auto w-[30%] h-[100%] ml-1">
-                                        <label className="text-white">submit</label>
-                                        <PrimaryButton textButton="Cari" />
+                                        <div onClick={(e) => onHandleSearch(e)} className="flex flex-col items-center justify-center my-auto w-full h-[100%] ml-1">
+                                            <label className="text-white">submit</label>
+                                            <PrimaryButton textButton="Cari" />
+                                        </div>
                                     </div>
                                 </div>
 
@@ -269,7 +323,7 @@ export default function KampusMerdekaAdminUmum() {
                                                     <div className="flex flex-row items-start justify-center px-2 w-[15%]">
                                                         <div className="basis-1/3 mr-1 py-2 cursor-pointer rounded-md bg-green-400" onClick={() => navigate(`/dashboard/admin/kampus-merdeka/detail/${data.id}`)}><BsFillInfoCircleFill className="mx-auto my-auto" /></div>
                                                         <div className="basis-1/3 ml-1 mr-1 cursor-pointer py-2 rounded-md bg-yellow-500" onClick={() => navigate(`/dashboard/admin/kampus-merdeka/update/${data.id}`)}><BsPencilSquare className="mx-auto my-auto" /></div>
-                                                        <div className="basis-1/3 ml-1 py-2 cursor-pointer rounded-md bg-red-600"><BsFillTrashFill className="mx-auto my-auto" /></div>
+                                                        <div className="basis-1/3 ml-1 py-2 cursor-pointer rounded-md bg-red-600" onClick={(e) => onDeleteKampusMerdeka(e, data.id)}><BsFillTrashFill className="mx-auto my-auto" /></div>
                                                     </div>
                                                 </div>
                                             </>

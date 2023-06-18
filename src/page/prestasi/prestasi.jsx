@@ -15,6 +15,7 @@ export default function Prestasi() {
     // const [popupIku, setPopupIku] = useState(false)
     const navigate = useNavigate()
     const [loading, setLoading] = useState(true)
+    const [triger, settriger] = useState(false)
 
     useEffect(() => {
         axiosInstance
@@ -27,7 +28,7 @@ export default function Prestasi() {
                 console.log(res.data.data.data)
             })
             .catch((err) => console.log(err))
-    }, [])
+    }, [triger])
     const [data, setData] = useState([])
 
     const onDeletePrestasi = (e, id) => {
@@ -45,13 +46,14 @@ export default function Prestasi() {
         }).then((result) => {
             if (result.isConfirmed) {
                 axiosInstance
-                    .delete(`/kampus-merdeka/${id}`, {
+                    .delete(`/prestasi/${id}`, {
                         headers: {
                             "Content-Type": "multipart/form-data",
                         }
                     })
                     .then((res) => {
-                        if (res.status === 201) {
+                        settriger(!triger)
+                        if (res.status === 200) {
                             Swal.fire({
                                 toast: true,
                                 icon: "success",
@@ -69,7 +71,7 @@ export default function Prestasi() {
                                 },
                             });
                         }
-                        window.location.reload();
+                        // window.location.reload();
                         console.log(res)
                     })
                     .catch((err) => console.log(err))

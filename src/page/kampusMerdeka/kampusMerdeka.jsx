@@ -15,6 +15,7 @@ export default function KampusMerdeka() {
     const navigate = useNavigate()
     const [popupIku, setPopupIku] = useState(false)
     const [loading, setLoading] = useState(true)
+    const [triger, settriger] = useState(false)
     useEffect(() => {
         axiosInstance
             .get("/kampus-merdeka", {
@@ -26,7 +27,7 @@ export default function KampusMerdeka() {
                 console.log(res.data.data.data)
             })
             .catch((err) => console.log(err))
-    }, [])
+    }, [triger])
     const [data, setData] = useState([])
 
     const onDeleteKampusMerdeka = (e, id) => {
@@ -50,7 +51,8 @@ export default function KampusMerdeka() {
                         }
                     })
                     .then((res) => {
-                        if (res.status === 201) {
+                        settriger(!triger)
+                        if (res.status === 200) {
                             Swal.fire({
                                 toast: true,
                                 icon: "success",
@@ -68,7 +70,7 @@ export default function KampusMerdeka() {
                                 },
                             });
                         }
-                        window.location.reload();
+                        // window.location.reload();
                         console.log(res)
                     })
                     .catch((err) => console.log(err))
@@ -120,8 +122,6 @@ export default function KampusMerdeka() {
                             </div>
 
                             <div className="bg-white px-4 py-4">
-
-
                                 <div className="flex flex-col text-left text-[16px] font-medium mt-2">
                                     <div className="flex w-full text-center py-2 bg-[#2b33331a]">
                                         <div className="w-[5%]">No</div>

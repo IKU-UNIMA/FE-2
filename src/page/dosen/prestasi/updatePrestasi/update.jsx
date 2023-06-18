@@ -14,6 +14,7 @@ export default function UpdatePrestasi() {
     const navigate = useNavigate()
     const { detailPrestasi } = useParams()
     const identify = "update"
+    const [errors, setErrors] = useState({ semester: "", nama: "", tingkat_prestasi: "", penyelenggara: "", peringkat: "" })
 
     useEffect(() => {
         axiosInstance
@@ -34,9 +35,9 @@ export default function UpdatePrestasi() {
         const checked = e?.target?.checked
 
         if (name === "smester") {
-            setSubmitData({ ...submitData, semester: value })
+            setSubmitData({ ...submitData, semester: { id: parseInt(value) } })
         } else if (named === "dosenPembimbing") {
-            setSubmitData({ ...submitData, dosen_pembimbing: { id: dosenId, nama: dosenNama } })
+            setSubmitData({ ...submitData, dosen_pembimbing: { id: parseInt(dosenId), nama: dosenNama } })
         } else if (name === "nama") {
             setSubmitData({ ...submitData, nama: value })
         } else if (name === "tingkatPrestasi") {
@@ -52,6 +53,7 @@ export default function UpdatePrestasi() {
         const datas = submitData
 
         console.log("data", datas)
+        console.log("smester", datas.semester)
         axiosInstance
             .put(`/prestasi/${detailPrestasi}`, {
                 id_semester: parseInt(datas.semester?.id),
@@ -89,7 +91,52 @@ export default function UpdatePrestasi() {
                 }
                 console.log(res)
             })
-            .catch((err) => console.log(err))
+            .catch((err) => {
+                console.log(err)
+                setErrors({
+                    ...errors,
+                    semester: submitData.semester == "" ? err.response.data.errors.id_semester : "",
+                    nama: submitData.nama == '' ? err.response.data.errors.nama : "",
+                    tingkat_prestasi: submitData.tingkat_prestasi == "" ? err.response.data.errors.tingkat_prestasi : "",
+                    penyelenggara: submitData.penyelenggara == "" ? err.response.data.errors.penyelenggara : "",
+                    peringkat: submitData.peringkat == "" ? err.response.data.errors.peringkat : ""
+                })
+                if (err.response.data.errors.message == "sertifikat tidak boleh kosong")
+                    Swal.fire({
+                        toast: true,
+                        icon: "error",
+                        title: err.response.data.errors.message,
+                        animation: false,
+                        background: "#222834",
+                        color: "#DE1508",
+                        position: "bottom-end",
+                        showConfirmButton: false,
+                        timer: 4000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener("mouseenter", Swal.stopTimer);
+                            toast.addEventListener("mouseleave", Swal.resumeTimer);
+                        },
+                    });
+                else {
+                    Swal.fire({
+                        toast: true,
+                        icon: "error",
+                        title: "periksa kembali",
+                        animation: false,
+                        background: "#222834",
+                        color: "#DE1508",
+                        position: "bottom-end",
+                        showConfirmButton: false,
+                        timer: 4000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener("mouseenter", Swal.stopTimer);
+                            toast.addEventListener("mouseleave", Swal.resumeTimer);
+                        },
+                    });
+                }
+            })
     }
 
     console.log("update data", submitData)
@@ -118,12 +165,12 @@ export default function UpdatePrestasi() {
                             </div>
 
                             <form>
-                                <Smester onHandleInput={onHandleInput} datas={submitData} identify={identify} />
-                                <DosenPembimbing onHandleInput={onHandleInput} datas={submitData} identify={identify} />
-                                <Nama onHandleInput={onHandleInput} datas={submitData} identify={identify} />
-                                <TingkatPrestasi onHandleInput={onHandleInput} datas={submitData} identify={identify} />
-                                <Penyelenggara onHandleInput={onHandleInput} datas={submitData} identify={identify} />
-                                <Peringkat onHandleInput={onHandleInput} datas={submitData} identify={identify} />
+                                <Smester onHandleInput={onHandleInput} datas={submitData} identify={identify} error={errors} />
+                                <DosenPembimbing onHandleInput={onHandleInput} datas={submitData} identify={identify} error={errors} tag={'prestasi'} />
+                                <Nama onHandleInput={onHandleInput} datas={submitData} identify={identify} error={errors} />
+                                <TingkatPrestasi onHandleInput={onHandleInput} datas={submitData} identify={identify} error={errors} />
+                                <Penyelenggara onHandleInput={onHandleInput} datas={submitData} identify={identify} error={errors} />
+                                <Peringkat onHandleInput={onHandleInput} datas={submitData} identify={identify} error={errors} />
                             </form>
 
                             <div onClick={(e) => onHandleSubmit(e)}>

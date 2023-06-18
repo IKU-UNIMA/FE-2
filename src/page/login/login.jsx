@@ -65,11 +65,46 @@ export default function Login() {
                 });
             })
             .catch((error) => {
-                if (email === "" && password === "") {
+                console.log(error)
+                if (email === "" || password === "") {
                     Swal.fire({
                         toast: true,
                         icon: "error",
                         title: "email atau password kosong",
+                        animation: false,
+                        background: "#222834",
+                        color: "#DE1508",
+                        position: "bottom-end",
+                        showConfirmButton: false,
+                        timer: 4000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener("mouseenter", Swal.stopTimer);
+                            toast.addEventListener("mouseleave", Swal.resumeTimer);
+                        },
+                    });
+                } else if (error.response.data.errors.email == "email harus berupa alamat email yang valid") {
+                    Swal.fire({
+                        toast: true,
+                        icon: "error",
+                        title: "email tidak valid",
+                        animation: false,
+                        background: "#222834",
+                        color: "#DE1508",
+                        position: "bottom-end",
+                        showConfirmButton: false,
+                        timer: 4000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener("mouseenter", Swal.stopTimer);
+                            toast.addEventListener("mouseleave", Swal.resumeTimer);
+                        },
+                    });
+                } else if (error.response.data.errors.message == "email atau password salah") {
+                    Swal.fire({
+                        toast: true,
+                        icon: "error",
+                        title: "email atau password salah",
                         animation: false,
                         background: "#222834",
                         color: "#DE1508",

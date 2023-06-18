@@ -11,6 +11,7 @@ import Swal from "sweetalert2";
 export default function FormPrestasi() {
     const navigate = useNavigate()
     const [faculties, setFaculties] = useState(null)
+    const [errors, setErrors] = useState({ semester: "", nama: "", tingkat_prestasi: "", penyelenggara: "", peringkat: "" })
 
     const initialValue = {
         nama: "",
@@ -20,8 +21,9 @@ export default function FormPrestasi() {
         penyelenggara: "",
         peringkat: "",
     }
+    const initialValueFile = ""
     const [submitData, setSubmitData] = useState(initialValue)
-    const [file, setFile] = useState(null)
+    const [file, setFile] = useState(initialValueFile)
 
     // console.log("submit data", submitData)
 
@@ -103,16 +105,64 @@ export default function FormPrestasi() {
                     });
                 }
             })
-            .catch((err) => console.log(err))
+            .catch((err) => {
+                console.log(err)
+                setErrors({
+                    ...errors,
+                    semester: submitData.smester == "" ? err.response.data.errors.id_semester : "",
+                    nama: submitData.nama == "" ? err.response.data.errors.nama : "",
+                    tingkat_prestasi: submitData.tingkatPrestasi == "" ? err.response.data.errors.tingkat_prestasi : "",
+                    penyelenggara: submitData.penyelenggara == "" ? err.response.data.errors.penyelenggara : "",
+                    peringkat: submitData.peringkat == "" ? err.response.data.errors.peringkat : ""
+                })
+                if (err.response.data?.errors.message == "sertifikat tidak boleh kosong")
+                    Swal.fire({
+                        toast: true,
+                        icon: "error",
+                        title: err.response.data.errors.message,
+                        animation: false,
+                        background: "#222834",
+                        color: "#DE1508",
+                        position: "bottom-end",
+                        showConfirmButton: false,
+                        timer: 4000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener("mouseenter", Swal.stopTimer);
+                            toast.addEventListener("mouseleave", Swal.resumeTimer);
+                        },
+                    });
+                else {
+                    Swal.fire({
+                        toast: true,
+                        icon: "error",
+                        title: "periksa kembali",
+                        animation: false,
+                        background: "#222834",
+                        color: "#DE1508",
+                        position: "bottom-end",
+                        showConfirmButton: false,
+                        timer: 4000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener("mouseenter", Swal.stopTimer);
+                            toast.addEventListener("mouseleave", Swal.resumeTimer);
+                        },
+                    });
+                }
+            })
         // setSubmitData({ name: '', faculties: null, majoring: null, followedProgram: null, nim: "" })
     }
 
     const resetData = (e) => {
         e.preventDefault()
         setSubmitData(initialValue)
+        setFile(initialValueFile)
     }
 
-    console.log("data create", submitData)
+    console.log("data created", submitData)
+    console.log("file", file)
+    console.log("error", errors)
 
     return (
         <>
@@ -124,13 +174,13 @@ export default function FormPrestasi() {
             </div>
 
             <form>
-                <Smester onHandleInput={onHandleInput} datas={submitData} identify="create" />
-                <DosenPembimbing onHandleInput={onHandleInput} datas={submitData} identify="create" />
-                <Nama onHandleInput={onHandleInput} datas={submitData} identify="create" />
-                <TingkatPrestasi onHandleInput={onHandleInput} datas={submitData} identify="create" />
-                <Penyelenggara onHandleInput={onHandleInput} datas={submitData} identify="create" />
-                <Peringkat onHandleInput={onHandleInput} datas={submitData} identify="create" />
-                <Sertifikat onHandleInput={onHandleInput} datas={submitData} identify="create" />
+                <Smester onHandleInput={onHandleInput} datas={submitData} identify="create" error={errors} />
+                <DosenPembimbing onHandleInput={onHandleInput} datas={submitData} identify="create" error={errors} tag={'prestasi'} />
+                <Nama onHandleInput={onHandleInput} datas={submitData} identify="create" error={errors} />
+                <TingkatPrestasi onHandleInput={onHandleInput} datas={submitData} identify="create" error={errors} />
+                <Penyelenggara onHandleInput={onHandleInput} datas={submitData} identify="create" error={errors} />
+                <Peringkat onHandleInput={onHandleInput} datas={submitData} identify="create" error={errors} />
+                <Sertifikat onHandleInput={onHandleInput} datas={submitData} identify="create" file={file} error={errors} />
             </form>
 
             <div className="mt-4">

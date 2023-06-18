@@ -14,6 +14,7 @@ export default function UpdateKMAdminUmum() {
     const navigate = useNavigate()
     const { detailKM } = useParams()
     const identify = "update"
+    const [errors, setErrors] = useState({ semester: "", nama: "", tingkat_prestasi: "", penyelenggara: "", peringkat: "", biaya_kuliah: "", dosen_pembimbing: "", kategori_program: "", ipk: "", ips: "", jenis_anggota: "", judul_aktivitas_mahasiswa: "", jumlah_sks: "", kontrak_krs: "", no_sk_tugas: "", status_keikutsertaan: "", tanggal_sk_tugas: "", total_sks: "" })
 
     useEffect(() => {
         axiosInstance
@@ -34,7 +35,7 @@ export default function UpdateKMAdminUmum() {
         const checked = e?.target?.checked
 
         if (name === "smester") {
-            setSubmitData({ ...submitData, semester: value })
+            setSubmitData({ ...submitData, semester: { id: parseInt(value) } })
         } else if (named === "dosenPembimbing") {
             setSubmitData({ ...submitData, dosen_pembimbing: { id: dosenId, nama: dosenNama } })
         } else if (name === "kategoriProgram") {
@@ -113,7 +114,65 @@ export default function UpdateKMAdminUmum() {
                 }
                 console.log(res)
             })
-            .catch((err) => console.log(err))
+            .catch((err) => {
+                setErrors({
+                    ...errors,
+                    semester: submitData.semester.id == "" ? err.response.data.errors.id_semester : "",
+                    nama: submitData.nama == "" ? err.response.data.errors.nama : "",
+                    tingkat_prestasi: submitData.tingkat_prestasi == "" ? err.response.data.errors.tingkat_prestasi : "",
+                    penyelenggara: submitData.penyelenggara == "" ? err.response.data.errors.penyelenggara : "",
+                    peringkat: submitData.peringkat == "" ? err.response.data.errors.peringkat : "",
+                    biaya_kuliah: submitData.biaya_kuliah == "" ? err.response.data.errors.biaya_kuliah : "",
+                    dosen_pembimbing: submitData.dosen_pembimbing.id == "" ? err.response.data.errors.id_dosen_pembimbing : "",
+                    kategori_program: submitData.kategori_program.id == "" ? err.response.data.errors.id_kategori_program : "",
+                    ipk: submitData.ipk == "" ? err.response.data.errors.ipk : "",
+                    ips: submitData.ips == "" ? err.response.data.errors.ips : "",
+                    jenis_anggota: submitData.jenis_anggota == "" ? err.response.data.errors.jenis_anggota : "",
+                    judul_aktivitas_mahasiswa: submitData.judul_aktivitas_mahasiswa == "" ? err.response.data.errors.judul_aktivitas_mahasiswa : "",
+                    jumlah_sks: submitData.jumlah_sks == "" ? err.response.data.errors.jumlah_sks : "",
+                    kontrak_krs: submitData.kontrak_krs == "" ? err.response.data.errors.kontrak_krs : "",
+                    no_sk_tugas: submitData.no_sk_tugas == "" ? err.response.data.errors.no_sk_tugas : "",
+                    status_keikutsertaan: submitData.status_keikutsertaan == "" ? err.response.data.errors.status_keikutsertaan : "",
+                    tanggal_sk_tugas: submitData.tanggal_sk_tugas == "" ? err.response.data.errors.tanggal_sk_tugas : "",
+                    total_sks: submitData.total_sks == "" ? err.response.data.errors.total_sks : "",
+                })
+                if (err.response.data.errors.message == "surat tugas tidak boleh kosong")
+                    Swal.fire({
+                        toast: true,
+                        icon: "error",
+                        title: err.response.data.errors.message,
+                        animation: false,
+                        background: "#222834",
+                        color: "#DE1508",
+                        position: "bottom-end",
+                        showConfirmButton: false,
+                        timer: 4000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener("mouseenter", Swal.stopTimer);
+                            toast.addEventListener("mouseleave", Swal.resumeTimer);
+                        },
+                    });
+                else {
+                    Swal.fire({
+                        toast: true,
+                        icon: "error",
+                        title: "periksa kembali",
+                        animation: false,
+                        background: "#222834",
+                        color: "#DE1508",
+                        position: "bottom-end",
+                        showConfirmButton: false,
+                        timer: 4000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener("mouseenter", Swal.stopTimer);
+                            toast.addEventListener("mouseleave", Swal.resumeTimer);
+                        },
+                    });
+                }
+                console.log(err)
+            })
     }
 
     console.log("update data", submitData)

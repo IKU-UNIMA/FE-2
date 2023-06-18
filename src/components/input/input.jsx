@@ -7,7 +7,7 @@ import CurrencyFormat from 'react-currency-format';
 import "./input.css"
 
 // prestasi
-export const Nama = ({ onHandleInput, datas, identify }) => {
+export const Nama = ({ onHandleInput, datas, identify, error }) => {
     return (
         <>
             {
@@ -15,10 +15,11 @@ export const Nama = ({ onHandleInput, datas, identify }) => {
                     <>
                         <div id='formPengabdian' className="flex p-4 mt-2 relative">
                             <div className='w-1/4 mr-4 my-auto'>
-                                <label className='font-medium'>Nama</label>
+                                <label className='font-medium'>Nama</label><label className="text-red-600"> *</label>
                             </div>
                             <div className='w-3/4 relative'>
                                 <input onChange={(e) => onHandleInput(e)} value={datas.nama} name="nama" type="text" className='w-full border-2 border-black px-2 py-1 pb-2 mt-1 rounded-md' />
+                                <label className="text-[14px] text-red-600">{error.nama}</label>
                             </div>
                         </div>
                     </>
@@ -43,10 +44,11 @@ export const Nama = ({ onHandleInput, datas, identify }) => {
                     <>
                         <div id='formPengabdian' className="flex p-4 mt-2 relative">
                             <div className='w-1/4 mr-4 my-auto'>
-                                <label className='font-medium'>Nama</label>
+                                <label className='font-medium'>Nama</label><label className="text-red-600"> *</label>
                             </div>
                             <div className='w-3/4 relative'>
                                 <input onChange={(e) => onHandleInput(e)} value={datas.nama} name="nama" type="text" className='w-full border-2 border-black px-2 py-1 pb-2 mt-1 rounded-md' />
+                                <label className="text-[14px] text-red-600">{error?.nama}</label>
                             </div>
                         </div>
                     </>
@@ -56,7 +58,7 @@ export const Nama = ({ onHandleInput, datas, identify }) => {
     )
 }
 
-export const Nim = ({ onHandleInput, datas, identify }) => {
+export const Nim = ({ onHandleInput, datas, identify, error }) => {
     return (
         <>
             {
@@ -91,7 +93,7 @@ export const Nim = ({ onHandleInput, datas, identify }) => {
     )
 }
 
-export const Fakultas = ({ onHandleInput, datas, identify }) => {
+export const Fakultas = ({ onHandleInput, datas, identify, error }) => {
     const data = [
         { id: 1, value: 'Teknik' },
         { id: 2, value: 'ilmu Olahraga' },
@@ -139,7 +141,7 @@ export const Fakultas = ({ onHandleInput, datas, identify }) => {
     )
 }
 
-export const Prodi = ({ onHandleInput, datas, identify }) => {
+export const Prodi = ({ onHandleInput, datas, identify, error }) => {
     const data = [
         { id: 1, value: 'Teknik' },
         { id: 2, value: 'ilmu Olahraga' },
@@ -187,7 +189,7 @@ export const Prodi = ({ onHandleInput, datas, identify }) => {
     )
 }
 
-export const Smester = ({ onHandleInput, datas, identify }) => {
+export const Smester = ({ onHandleInput, datas, identify, error }) => {
     useEffect(() => {
         axiosInstance
             .get("/semester", {
@@ -204,7 +206,7 @@ export const Smester = ({ onHandleInput, datas, identify }) => {
                     <>
                         <div id='formPengabdian' className="flex p-4 mt-2 relative">
                             <div className='w-1/4 mr-4 my-auto'>
-                                <label className='font-medium'>Smester</label>
+                                <label className='font-medium'>Semester</label><label className="text-red-600"> *</label>
                             </div>
                             <div className='w-3/4 relative'>
                                 <select onChange={(e) => onHandleInput(e)} value={datas.smester} name="smester" className='w-full border-2 border-black px-2 py-1 pb-2 mt-1 rounded-md'>
@@ -216,6 +218,7 @@ export const Smester = ({ onHandleInput, datas, identify }) => {
                                     ))
                                     }
                                 </select>
+                                <label className="text-[14px] text-red-600">{error?.semester}</label>
                             </div>
                         </div>
                     </>
@@ -226,18 +229,19 @@ export const Smester = ({ onHandleInput, datas, identify }) => {
                     <>
                         <div id='formPengabdian' className="flex p-4 mt-2 relative">
                             <div className='w-1/4 mr-4 my-auto'>
-                                <label className='font-medium'>Smester</label>
+                                <label className='font-medium'>Smester</label><label className="text-red-600"> *</label>
                             </div>
                             <div className='w-3/4 relative'>
-                                <select onChange={(e) => onHandleInput(e)} value={datas.semester?.id} name="smester" className='w-full border-2 border-black px-2 py-1 pb-2 mt-1 rounded-md'>
+                                <select onChange={(e) => onHandleInput(e)} value={(datas.semester?.id)} name="smester" className='w-full border-2 border-black px-2 py-1 pb-2 mt-1 rounded-md'>
                                     <option value={null}>pilih</option>
                                     {smester?.map((data) => (
                                         <>
-                                            <option value={data?.id}>{data.nama}</option>
+                                            <option value={parseInt(data?.id)}>{data.nama}</option>
                                         </>
                                     ))
                                     }
                                 </select>
+                                <label className="text-[14px] text-red-600">{error?.semester}</label>
                             </div>
                         </div>
                     </>
@@ -261,7 +265,7 @@ export const Smester = ({ onHandleInput, datas, identify }) => {
     )
 }
 
-export const TingkatPrestasi = ({ onHandleInput, datas, identify }) => {
+export const TingkatPrestasi = ({ onHandleInput, datas, identify, error }) => {
     return (
         <>
             {
@@ -269,10 +273,11 @@ export const TingkatPrestasi = ({ onHandleInput, datas, identify }) => {
                     <>
                         <div id='formPengabdian' className="flex p-4 mt-2 relative">
                             <div className='w-1/4 mr-4 my-auto'>
-                                <label className='font-medium'>Tingkat Prestasi</label>
+                                <label className='font-medium'>Tingkat Prestasi</label><label className="text-red-600"> *</label>
                             </div>
                             <div className='w-3/4 relative'>
                                 <input onChange={(e) => onHandleInput(e)} value={datas.tingkatPrestasi} name="tingkatPrestasi" type="text" placeholder="Prestasi" className='w-full border-2 border-black px-2 py-1 pb-2 mt-1 rounded-md' />
+                                <label className="text-[14px] text-red-600">{error.tingkat_prestasi}</label>
                             </div>
                         </div>
                     </>
@@ -297,10 +302,11 @@ export const TingkatPrestasi = ({ onHandleInput, datas, identify }) => {
                     <>
                         <div id='formPengabdian' className="flex p-4 mt-2 relative">
                             <div className='w-1/4 mr-4 my-auto'>
-                                <label className='font-medium'>Tingkat Prestasi</label>
+                                <label className='font-medium'>Tingkat Prestasi</label><label className="text-red-600"> *</label>
                             </div>
                             <div className='w-3/4 relative'>
                                 <input onChange={(e) => onHandleInput(e)} value={datas.tingkat_prestasi} name="tingkatPrestasi" type="text" placeholder="Prestasi" className='w-full border-2 border-black px-2 py-1 pb-2 mt-1 rounded-md' />
+                                <label className="text-[14px] text-red-600">{error?.tingkat_prestasi}</label>
                             </div>
                         </div>
                     </>
@@ -310,7 +316,7 @@ export const TingkatPrestasi = ({ onHandleInput, datas, identify }) => {
     )
 }
 
-export const DosenPembimbing = ({ onHandleInput, datas, identify }) => {
+export const DosenPembimbing = ({ onHandleInput, datas, identify, error, tag }) => {
     useEffect(() => {
         axiosInstance
             .get("/dosen", {
@@ -346,12 +352,12 @@ export const DosenPembimbing = ({ onHandleInput, datas, identify }) => {
                     <>
                         <div id='formPengabdian' className="flex p-4 mt-2 relative">
                             <div className='w-1/4 mr-4 my-auto'>
-                                <label className='font-medium'>Dosen Pembimbing</label>
+                                <label className='font-medium'>Dosen Pembimbing</label><label className={tag == "prestasi" ? "hidden" : "text-red-600"}> *</label>
                             </div>
                             <div className='w-3/4 relative'>
                                 <div id='mitraDD' onClick={(e) => onHandlemitra_litabmas(e)} className={mitra_litabmas.mitraDD === true ? "flex justify-between bg-white border-2 border-black px-2 py-1 pb-2 rounded-t-md" : 'flex justify-between bg-white border-2 border-black px-2 py-1 pb-2 rounded-md'}>
                                     {
-                                        mitra_litabmas.mitra === "" ? (
+                                        mitra_litabmas.mitra === "" || datas.dosenPembimbing === "" ? (
                                             <>
                                                 <div className=''>Pilih...</div>
                                             </>
@@ -380,6 +386,7 @@ export const DosenPembimbing = ({ onHandleInput, datas, identify }) => {
                                         }
                                     </ul>
                                 </div>
+                                <label className="text-[14px] text-red-600">{error?.dosen_pembimbing}</label>
                             </div>
                         </div>
                     </>
@@ -390,7 +397,7 @@ export const DosenPembimbing = ({ onHandleInput, datas, identify }) => {
                     <>
                         <div id='formPengabdian' className="flex p-4 mt-2 relative">
                             <div className='w-1/4 mr-4 my-auto'>
-                                <label className='font-medium'>Dosen Pembimbing</label>
+                                <label className='font-medium'>Dosen Pembimbing</label><label className={tag == "prestasi" ? "hidden" : "text-red-600"}> *</label>
                             </div>
                             <div className='w-3/4 relative'>
                                 <div id='mitraDD' onClick={(e) => onHandlemitra_litabmas(e)} className={mitra_litabmas.mitraDD === true ? "flex justify-between bg-white border-2 border-black px-2 py-1 pb-2 rounded-t-md" : 'flex justify-between bg-white border-2 border-black px-2 py-1 pb-2 rounded-md'}>
@@ -424,6 +431,7 @@ export const DosenPembimbing = ({ onHandleInput, datas, identify }) => {
                                         }
                                     </ul>
                                 </div>
+                                <label className="text-[14px] text-red-600">{error?.dosen_pembimbing}</label>
                             </div>
                         </div>
                     </>
@@ -447,7 +455,7 @@ export const DosenPembimbing = ({ onHandleInput, datas, identify }) => {
     )
 }
 
-export const Penyelenggara = ({ onHandleInput, datas, identify }) => {
+export const Penyelenggara = ({ onHandleInput, datas, identify, error }) => {
     return (
         <>
             {
@@ -455,10 +463,11 @@ export const Penyelenggara = ({ onHandleInput, datas, identify }) => {
                     <>
                         <div id='formPengabdian' className="flex p-4 mt-2 relative">
                             <div className='w-1/4 mr-4 my-auto'>
-                                <label className='font-medium'>Penyelenggara</label>
+                                <label className='font-medium'>Penyelenggara</label><label className="text-red-600"> *</label>
                             </div>
                             <div className='w-3/4 relative'>
                                 <input onChange={(e) => onHandleInput(e)} value={datas.penyelenggara} name="penyelenggara" type="text" placeholder="Penyelenggara" className='w-full border-2 border-black px-2 py-1 pb-2 mt-1 rounded-md' />
+                                <label className="text-[14px] text-red-600">{error?.penyelenggara}</label>
                             </div>
                         </div>
                     </>
@@ -483,10 +492,11 @@ export const Penyelenggara = ({ onHandleInput, datas, identify }) => {
                     <>
                         <div id='formPengabdian' className="flex p-4 mt-2 relative">
                             <div className='w-1/4 mr-4 my-auto'>
-                                <label className='font-medium'>Penyelenggara</label>
+                                <label className='font-medium'>Penyelenggara</label><label className="text-red-600"> *</label>
                             </div>
                             <div className='w-3/4 relative'>
                                 <input onChange={(e) => onHandleInput(e)} value={datas.penyelenggara} name="penyelenggara" type="text" placeholder="Penyelenggara" className='w-full border-2 border-black px-2 py-1 pb-2 mt-1 rounded-md' />
+                                <label className="text-[14px] text-red-600">{error?.penyelenggara}</label>
                             </div>
                         </div>
                     </>
@@ -496,7 +506,7 @@ export const Penyelenggara = ({ onHandleInput, datas, identify }) => {
     )
 }
 
-export const Peringkat = ({ onHandleInput, datas, identify }) => {
+export const Peringkat = ({ onHandleInput, datas, identify, error }) => {
     return (
         <>
             {
@@ -504,10 +514,11 @@ export const Peringkat = ({ onHandleInput, datas, identify }) => {
                     <>
                         <div id='formPengabdian' className="flex p-4 mt-2 relative">
                             <div className='w-1/4 mr-4 my-auto'>
-                                <label className='font-medium'>Peringkat</label>
+                                <label className='font-medium'>Peringkat</label><label className="text-red-600"> *</label>
                             </div>
                             <div className='w-3/4 relative'>
                                 <input onChange={(e) => onHandleInput(e)} value={datas.peringkat} name="peringkat" type="text" placeholder="Peringkat" className='w-full border-2 border-black px-2 py-1 pb-2 mt-1 rounded-md' />
+                                <label className="text-[14px] text-red-600">{error?.peringkat}</label>
                             </div>
                         </div>
                     </>
@@ -532,10 +543,11 @@ export const Peringkat = ({ onHandleInput, datas, identify }) => {
                     <>
                         <div id='formPengabdian' className="flex p-4 mt-2 relative">
                             <div className='w-1/4 mr-4 my-auto'>
-                                <label className='font-medium'>Peringkat</label>
+                                <label className='font-medium'>Peringkat</label><label className="text-red-600"> *</label>
                             </div>
                             <div className='w-3/4 relative'>
                                 <input onChange={(e) => onHandleInput(e)} value={datas.peringkat} name="peringkat" type="text" placeholder="Peringkat" className='w-full border-2 border-black px-2 py-1 pb-2 mt-1 rounded-md' />
+                                <label className="text-[14px] text-red-600">{error?.peringkat}</label>
                             </div>
                         </div>
                     </>
@@ -545,7 +557,7 @@ export const Peringkat = ({ onHandleInput, datas, identify }) => {
     )
 }
 
-export const Sertifikat = ({ onHandleInput, datas, identify }) => {
+export const Sertifikat = ({ onHandleInput, datas, identify, error, file }) => {
     return (
         <>
             {
@@ -556,7 +568,11 @@ export const Sertifikat = ({ onHandleInput, datas, identify }) => {
                                 <label className='font-medium'>Sertifikat</label>
                             </div>
                             <div className='w-3/4 relative bg-white'>
-                                <input onChange={(e) => onHandleInput(e)} name="sertifikat" type="file" placeholder="Peringkat" className='w-full border-2 border-black px-2 py-1 pb-2 mt-1 rounded-md' />
+                                {file === "" ? (
+                                    <input onChange={(e) => onHandleInput(e)} value={""} name="sertifikat" type="file" placeholder="Peringkat" className='w-full border-2 border-black px-2 py-1 pb-2 mt-1 rounded-md' />
+                                ) : (
+                                    <input onChange={(e) => onHandleInput(e)} name="sertifikat" type="file" placeholder="Peringkat" className='w-full border-2 border-black px-2 py-1 pb-2 mt-1 rounded-md' />
+                                )}
                             </div>
                         </div>
                     </>
@@ -580,7 +596,7 @@ export const Sertifikat = ({ onHandleInput, datas, identify }) => {
     )
 }
 
-export const FollowedProgram = ({ onHandleInput, datas, identify }) => {
+export const FollowedProgram = ({ onHandleInput, datas, identify, error }) => {
     const data = [
         { id: 1, value: 'Teknik' },
         { id: 2, value: 'ilmu Olahraga' },
@@ -628,7 +644,7 @@ export const FollowedProgram = ({ onHandleInput, datas, identify }) => {
     )
 }
 
-export const KategoriProgram = ({ onHandleInput, datas, identify }) => {
+export const KategoriProgram = ({ onHandleInput, datas, identify, error }) => {
     useEffect(() => {
         axiosInstance
             .get("/kategori-program", {
@@ -645,7 +661,7 @@ export const KategoriProgram = ({ onHandleInput, datas, identify }) => {
                     <>
                         <div id='formPengabdian' className="flex p-4 mt-2 relative">
                             <div className='w-1/4 mr-4 my-auto'>
-                                <label className='font-medium'>Kategori Program</label>
+                                <label className='font-medium'>Kategori Program</label><label className="text-red-600"> *</label>
                             </div>
                             <div className='w-3/4 relative'>
                                 <select onChange={(e) => onHandleInput(e)} value={datas.kategoriProgram} name="kategoriProgram" className='w-full border-2 border-black px-2 py-1 pb-2 mt-1 rounded-md'>
@@ -657,6 +673,7 @@ export const KategoriProgram = ({ onHandleInput, datas, identify }) => {
                                     ))
                                     }
                                 </select>
+                                <label className="text-[14px] text-red-600">{error?.kategori_program}</label>
                             </div>
                         </div>
                     </>
@@ -667,7 +684,7 @@ export const KategoriProgram = ({ onHandleInput, datas, identify }) => {
                     <>
                         <div id='formPengabdian' className="flex p-4 mt-2 relative">
                             <div className='w-1/4 mr-4 my-auto'>
-                                <label className='font-medium'>Kategori Program</label>
+                                <label className='font-medium'>Kategori Program</label><label className="text-red-600"> *</label>
                             </div>
                             <div className='w-3/4 relative'>
                                 <select onChange={(e) => onHandleInput(e)} value={datas.kategori_program?.id} name="kategoriProgram" className='w-full border-2 border-black px-2 py-1 pb-2 mt-1 rounded-md'>
@@ -679,6 +696,7 @@ export const KategoriProgram = ({ onHandleInput, datas, identify }) => {
                                     ))
                                     }
                                 </select>
+                                <label className="text-[14px] text-red-600">{error?.kategori_program}</label>
                             </div>
                         </div>
                     </>
@@ -702,7 +720,7 @@ export const KategoriProgram = ({ onHandleInput, datas, identify }) => {
     )
 }
 
-export const StatusKeikutsertaan = ({ onHandleInput, datas, identify }) => {
+export const StatusKeikutsertaan = ({ onHandleInput, datas, identify, error }) => {
     return (
         <>
             {
@@ -710,10 +728,11 @@ export const StatusKeikutsertaan = ({ onHandleInput, datas, identify }) => {
                     <>
                         <div id='formPengabdian' className="flex p-4 mt-2 relative">
                             <div className='w-1/4 mr-4 my-auto'>
-                                <label className='font-medium'>Status Keikutsertaan</label>
+                                <label className='font-medium'>Status Keikutsertaan</label><label className="text-red-600"> *</label>
                             </div>
                             <div className='w-3/4 relative'>
                                 <input onChange={(e) => onHandleInput(e)} name="statusKeikutsertaan" type="text" className='w-full border-2 border-black px-2 py-1 pb-2 mt-1 rounded-md' />
+                                <label className="text-[14px] text-red-600">{error?.status_keikutsertaan}</label>
                             </div>
                         </div>
                     </>
@@ -724,10 +743,11 @@ export const StatusKeikutsertaan = ({ onHandleInput, datas, identify }) => {
                     <>
                         <div id='formPengabdian' className="flex p-4 mt-2 relative">
                             <div className='w-1/4 mr-4 my-auto'>
-                                <label className='font-medium'>Status Keikutsertaan</label>
+                                <label className='font-medium'>Status Keikutsertaan</label><label className="text-red-600"> *</label>
                             </div>
                             <div className='w-3/4 relative'>
                                 <input onChange={(e) => onHandleInput(e)} value={datas.status_keikutsertaan} name="statusKeikutsertaan" type="text" className='w-full border-2 border-black px-2 py-1 pb-2 mt-1 rounded-md' />
+                                <label className="text-[14px] text-red-600">{error?.status_keikutsertaan}</label>
                             </div>
                         </div>
                     </>
@@ -751,7 +771,7 @@ export const StatusKeikutsertaan = ({ onHandleInput, datas, identify }) => {
     )
 }
 
-export const KontrakKrs = ({ onHandleInput, datas, identify }) => {
+export const KontrakKrs = ({ onHandleInput, datas, identify, error }) => {
     return (
         <>
             {
@@ -759,11 +779,16 @@ export const KontrakKrs = ({ onHandleInput, datas, identify }) => {
                     <>
                         <div id='formPengabdian' className="flex p-4 mt-2 relative">
                             <div className='w-1/4 mr-4 my-auto'>
-                                <label className='font-medium'>Kontrak KRS</label>
+                                <label className='font-medium'>Kontrak KRS</label><label className="text-red-600"> *</label>
                             </div>
                             <div className='w-3/4 relative'>
-                                <input onChange={(e) => onHandleInput(e)} name="kontrakKrs" value={datas.kontrakKrs} type="checkbox" className='px-2 py-1 pb-2 mt-1' />
-                                <label> Ya</label>
+                                <div>
+                                    <input onChange={(e) => onHandleInput(e)} name="kontrakKrs" value={datas.kontrakKrs} type="checkbox" className='px-2 py-1 pb-2 mt-1' />
+                                    <label> Ya</label>
+                                </div>
+                                <div>
+                                    <label className="text-[14px] text-red-600">{error?.kontrak_krs}</label>
+                                </div>
                             </div>
                         </div>
                     </>
@@ -774,11 +799,16 @@ export const KontrakKrs = ({ onHandleInput, datas, identify }) => {
                     <>
                         <div id='formPengabdian' className="flex p-4 mt-2 relative">
                             <div className='w-1/4 mr-4 my-auto'>
-                                <label className='font-medium'>Kontrak KRS</label>
+                                <label className='font-medium'>Kontrak KRS</label><label className="text-red-600"> *</label>
                             </div>
                             <div className='w-3/4 relative'>
-                                <input onChange={(e) => onHandleInput(e)} name="kontrakKrs" value={datas.kontrakKrs} checked={datas.kontrak_krs} type="checkbox" className='px-2 py-1 pb-2 mt-1' />
-                                <label> Ya</label>
+                                <div>
+                                    <input onChange={(e) => onHandleInput(e)} name="kontrakKrs" value={datas.kontrakKrs} checked={datas.kontrak_krs} type="checkbox" className='px-2 py-1 pb-2 mt-1' />
+                                    <label> Ya</label>
+                                </div>
+                                <div>
+                                    <label className="text-[14px] text-red-600">{error?.kontrak_krs}</label>
+                                </div>
                             </div>
                         </div>
                     </>
@@ -802,7 +832,7 @@ export const KontrakKrs = ({ onHandleInput, datas, identify }) => {
     )
 }
 
-export const JudulAktivitasMahasiswa = ({ onHandleInput, datas, identify }) => {
+export const JudulAktivitasMahasiswa = ({ onHandleInput, datas, identify, error }) => {
     return (
         <>
             {
@@ -810,10 +840,11 @@ export const JudulAktivitasMahasiswa = ({ onHandleInput, datas, identify }) => {
                     <>
                         <div id='formPengabdian' className="flex p-4 mt-2 relative">
                             <div className='w-1/4 mr-4 my-auto'>
-                                <label className='font-medium'>Judul Aktivitas</label>
+                                <label className='font-medium'>Judul Aktivitas</label><label className="text-red-600"> *</label>
                             </div>
                             <div className='w-3/4 relative'>
                                 <input onChange={(e) => onHandleInput(e)} name="judulAktivitasMahasiswa" value={datas.judulAktivitasMahasiswa} type="text" className='w-full border-2 border-black px-2 py-1 pb-2 mt-1 rounded-md' />
+                                <label className="text-[14px] text-red-600">{error?.judul_aktivitas_mahasiswa}</label>
                             </div>
                         </div>
                     </>
@@ -824,10 +855,11 @@ export const JudulAktivitasMahasiswa = ({ onHandleInput, datas, identify }) => {
                     <>
                         <div id='formPengabdian' className="flex p-4 mt-2 relative">
                             <div className='w-1/4 mr-4 my-auto'>
-                                <label className='font-medium'>Judul Aktivitas</label>
+                                <label className='font-medium'>Judul Aktivitas</label><label className="text-red-600"> *</label>
                             </div>
                             <div className='w-3/4 relative'>
                                 <input onChange={(e) => onHandleInput(e)} name="judulAktivitasMahasiswa" value={datas.judul_aktivitas_mahasiswa} type="text" className='w-full border-2 border-black px-2 py-1 pb-2 mt-1 rounded-md' />
+                                <label className="text-[14px] text-red-600">{error?.judul_aktivitas_mahasiswa}</label>
                             </div>
                         </div>
                     </>
@@ -851,7 +883,7 @@ export const JudulAktivitasMahasiswa = ({ onHandleInput, datas, identify }) => {
     )
 }
 
-export const NoSkTugas = ({ onHandleInput, datas, identify }) => {
+export const NoSkTugas = ({ onHandleInput, datas, identify, error }) => {
     return (
         <>
             {
@@ -859,10 +891,11 @@ export const NoSkTugas = ({ onHandleInput, datas, identify }) => {
                     <>
                         <div id='formPengabdian' className="flex p-4 mt-2 relative">
                             <div className='w-1/4 mr-4 my-auto'>
-                                <label className='font-medium'>No SK Tugas</label>
+                                <label className='font-medium'>No SK Tugas</label><label className="text-red-600"> *</label>
                             </div>
                             <div className='w-3/4 relative'>
                                 <input onChange={(e) => onHandleInput(e)} name="noSkTugas" value={datas.noSkTugas} type="text" className='w-full border-2 border-black px-2 py-1 pb-2 mt-1 rounded-md' />
+                                <label className="text-[14px] text-red-600">{error?.no_sk_tugas}</label>
                             </div>
                         </div>
                     </>
@@ -873,10 +906,11 @@ export const NoSkTugas = ({ onHandleInput, datas, identify }) => {
                     <>
                         <div id='formPengabdian' className="flex p-4 mt-2 relative">
                             <div className='w-1/4 mr-4 my-auto'>
-                                <label className='font-medium'>No SK Tugas</label>
+                                <label className='font-medium'>No SK Tugas</label><label className="text-red-600"> *</label>
                             </div>
                             <div className='w-3/4 relative'>
                                 <input onChange={(e) => onHandleInput(e)} name="noSkTugas" value={datas.no_sk_tugas} type="text" className='w-full border-2 border-black px-2 py-1 pb-2 mt-1 rounded-md' />
+                                <label className="text-[14px] text-red-600">{error?.no_sk_tugas}</label>
                             </div>
                         </div>
                     </>
@@ -900,7 +934,7 @@ export const NoSkTugas = ({ onHandleInput, datas, identify }) => {
     )
 }
 
-export const TanggalSkTugas = ({ onHandleInput, datas, identify }) => {
+export const TanggalSkTugas = ({ onHandleInput, datas, identify, error }) => {
     return (
         <>
             {
@@ -908,10 +942,11 @@ export const TanggalSkTugas = ({ onHandleInput, datas, identify }) => {
                     <>
                         <div id='formPengabdian' className="flex p-4 mt-2 relative">
                             <div className='w-1/4 mr-4 my-auto'>
-                                <label className='font-medium'>Tanggal SK Tugas</label>
+                                <label className='font-medium'>Tanggal SK Tugas</label><label className="text-red-600"> *</label>
                             </div>
                             <div className='w-3/4 relative'>
                                 <input onChange={(e) => onHandleInput(e)} name="tanggalSkTugas" value={datas.tanggalSkTugas} type="date" className='w-full border-2 border-black px-2 py-1 pb-2 mt-1 rounded-md' />
+                                <label className="text-[14px] text-red-600">{error?.tanggal_sk_tugas}</label>
                             </div>
                         </div>
                     </>
@@ -922,10 +957,11 @@ export const TanggalSkTugas = ({ onHandleInput, datas, identify }) => {
                     <>
                         <div id='formPengabdian' className="flex p-4 mt-2 relative">
                             <div className='w-1/4 mr-4 my-auto'>
-                                <label className='font-medium'>Tanggal SK Tugas</label>
+                                <label className='font-medium'>Tanggal SK Tugas</label><label className="text-red-600"> *</label>
                             </div>
                             <div className='w-3/4 relative'>
                                 <input onChange={(e) => onHandleInput(e)} name="tanggalSkTugas" value={datas.tanggal_sk_tugas?.split("T00:00:00+07:00")[0]} type="date" className='w-full border-2 border-black px-2 py-1 pb-2 mt-1 rounded-md' />
+                                <label className="text-[14px] text-red-600">{error?.tanggal_sk_tugas}</label>
                             </div>
                         </div>
                     </>
@@ -949,7 +985,8 @@ export const TanggalSkTugas = ({ onHandleInput, datas, identify }) => {
     )
 }
 
-export const JenisAnggota = ({ onHandleInput, datas, identify }) => {
+export const JenisAnggota = ({ onHandleInput, datas, identify, error }) => {
+    const [jenis, setJenis] = useState(['Tunggal', 'Kelompok'])
     return (
         <>
             {
@@ -957,10 +994,20 @@ export const JenisAnggota = ({ onHandleInput, datas, identify }) => {
                     <>
                         <div id='formPengabdian' className="flex p-4 mt-2 relative">
                             <div className='w-1/4 mr-4 my-auto'>
-                                <label className='font-medium'>Jenis Anggota</label>
+                                <label className='font-medium'>Jenis Anggota</label><label className="text-red-600"> *</label>
                             </div>
                             <div className='w-3/4 relative'>
-                                <input onChange={(e) => onHandleInput(e)} name="jenisAnggota" value={datas.jenisAnggota} type="text" className='w-full border-2 border-black px-2 py-1 pb-2 mt-1 rounded-md' />
+                                {/* <input onChange={(e) => onHandleInput(e)} name="jenisAnggota" value={datas.jenisAnggota} type="text" className='w-full border-2 border-black px-2 py-1 pb-2 mt-1 rounded-md' /> */}
+                                <select onChange={(e) => onHandleInput(e)} value={datas.jenisAnggota} name="jenisAnggota" className='w-full border-2 border-black px-2 py-1 pb-2 mt-1 rounded-md'>
+                                    <option value={null}>pilih</option>
+                                    {jenis?.map((data, i) => (
+                                        <>
+                                            <option value={data}>{data}</option>
+                                        </>
+                                    ))
+                                    }
+                                </select>
+                                <label className="text-[14px] text-red-600">{error?.jenis_anggota}</label>
                             </div>
                         </div>
                     </>
@@ -971,10 +1018,20 @@ export const JenisAnggota = ({ onHandleInput, datas, identify }) => {
                     <>
                         <div id='formPengabdian' className="flex p-4 mt-2 relative">
                             <div className='w-1/4 mr-4 my-auto'>
-                                <label className='font-medium'>Jenis Anggota</label>
+                                <label className='font-medium'>Jenis Anggota</label><label className="text-red-600"> *</label>
                             </div>
                             <div className='w-3/4 relative'>
-                                <input onChange={(e) => onHandleInput(e)} name="jenisAnggota" value={datas.jenis_anggota} type="text" className='w-full border-2 border-black px-2 py-1 pb-2 mt-1 rounded-md' />
+                                {/* <input onChange={(e) => onHandleInput(e)} name="jenisAnggota" value={datas.jenis_anggota} type="text" className='w-full border-2 border-black px-2 py-1 pb-2 mt-1 rounded-md' />
+                                <label className="text-[14px] text-red-600">{error?.jenis_anggota}</label> */}
+                                <select onChange={(e) => onHandleInput(e)} value={datas.jenis_anggota} name="jenisAnggota" className='w-full border-2 border-black px-2 py-1 pb-2 mt-1 rounded-md'>
+                                    <option value={null}>pilih</option>
+                                    {jenis?.map((data, i) => (
+                                        <>
+                                            <option value={data}>{data}</option>
+                                        </>
+                                    ))
+                                    }
+                                </select>
                             </div>
                         </div>
                     </>
@@ -998,7 +1055,7 @@ export const JenisAnggota = ({ onHandleInput, datas, identify }) => {
     )
 }
 
-export const Ips = ({ onHandleInput, datas, identify }) => {
+export const Ips = ({ onHandleInput, datas, identify, error }) => {
     return (
         <>
             {
@@ -1006,10 +1063,11 @@ export const Ips = ({ onHandleInput, datas, identify }) => {
                     <>
                         <div id='formPengabdian' className="flex p-4 mt-2 relative">
                             <div className='w-1/4 mr-4 my-auto'>
-                                <label className='font-medium'>IPS</label>
+                                <label className='font-medium'>IPS</label><label className="text-red-600"> *</label>
                             </div>
                             <div className='w-3/4 relative'>
                                 <input onChange={(e) => onHandleInput(e)} name="ips" value={datas.ips} type="number" className='w-full border-2 border-black px-2 py-1 pb-2 mt-1 rounded-md' />
+                                <label className="text-[14px] text-red-600">{error?.ips}</label>
                             </div>
                         </div>
                     </>
@@ -1020,10 +1078,11 @@ export const Ips = ({ onHandleInput, datas, identify }) => {
                     <>
                         <div id='formPengabdian' className="flex p-4 mt-2 relative">
                             <div className='w-1/4 mr-4 my-auto'>
-                                <label className='font-medium'>IPS</label>
+                                <label className='font-medium'>IPS</label><label className="text-red-600"> *</label>
                             </div>
                             <div className='w-3/4 relative'>
                                 <input onChange={(e) => onHandleInput(e)} name="ips" value={datas.ips} type="number" className='w-full border-2 border-black px-2 py-1 pb-2 mt-1 rounded-md' />
+                                <label className="text-[14px] text-red-600">{error?.ips}</label>
                             </div>
                         </div>
                     </>
@@ -1047,7 +1106,7 @@ export const Ips = ({ onHandleInput, datas, identify }) => {
     )
 }
 
-export const Ipk = ({ onHandleInput, datas, identify }) => {
+export const Ipk = ({ onHandleInput, datas, identify, error }) => {
     return (
         <>
             {
@@ -1055,10 +1114,11 @@ export const Ipk = ({ onHandleInput, datas, identify }) => {
                     <>
                         <div id='formPengabdian' className="flex p-4 mt-2 relative">
                             <div className='w-1/4 mr-4 my-auto'>
-                                <label className='font-medium'>IPK</label>
+                                <label className='font-medium'>IPK</label><label className="text-red-600"> *</label>
                             </div>
                             <div className='w-3/4 relative'>
                                 <input onChange={(e) => onHandleInput(e)} name="ipk" value={datas.ipk} type="number" className='w-full border-2 border-black px-2 py-1 pb-2 mt-1 rounded-md' />
+                                <label className="text-[14px] text-red-600">{error?.ipk}</label>
                             </div>
                         </div>
                     </>
@@ -1069,10 +1129,11 @@ export const Ipk = ({ onHandleInput, datas, identify }) => {
                     <>
                         <div id='formPengabdian' className="flex p-4 mt-2 relative">
                             <div className='w-1/4 mr-4 my-auto'>
-                                <label className='font-medium'>IPK</label>
+                                <label className='font-medium'>IPK</label><label className="text-red-600"> *</label>
                             </div>
                             <div className='w-3/4 relative'>
                                 <input onChange={(e) => onHandleInput(e)} name="ipk" value={datas.Ipk} type="number" className='w-full border-2 border-black px-2 py-1 pb-2 mt-1 rounded-md' />
+                                <label className="text-[14px] text-red-600">{error?.ipk}</label>
                             </div>
                         </div>
                     </>
@@ -1096,7 +1157,7 @@ export const Ipk = ({ onHandleInput, datas, identify }) => {
     )
 }
 
-export const JumlahSks = ({ onHandleInput, datas, identify }) => {
+export const JumlahSks = ({ onHandleInput, datas, identify, error }) => {
     return (
         <>
             {
@@ -1104,10 +1165,11 @@ export const JumlahSks = ({ onHandleInput, datas, identify }) => {
                     <>
                         <div id='formPengabdian' className="flex p-4 mt-2 relative">
                             <div className='w-1/4 mr-4 my-auto'>
-                                <label className='font-medium'>Jumlah SKS</label>
+                                <label className='font-medium'>Jumlah SKS</label><label className="text-red-600"> *</label>
                             </div>
                             <div className='w-3/4 relative'>
                                 <input onChange={(e) => onHandleInput(e)} name="jumlahSks" value={datas.jumlahSks} type="text" className='w-full border-2 border-black px-2 py-1 pb-2 mt-1 rounded-md' />
+                                <label className="text-[14px] text-red-600">{error?.jumlah_sks}</label>
                             </div>
                         </div>
                     </>
@@ -1118,10 +1180,11 @@ export const JumlahSks = ({ onHandleInput, datas, identify }) => {
                     <>
                         <div id='formPengabdian' className="flex p-4 mt-2 relative">
                             <div className='w-1/4 mr-4 my-auto'>
-                                <label className='font-medium'>Jumlah SKS</label>
+                                <label className='font-medium'>Jumlah SKS</label><label className="text-red-600"> *</label>
                             </div>
                             <div className='w-3/4 relative'>
                                 <input onChange={(e) => onHandleInput(e)} name="jumlahSks" value={datas.jumlah_sks} type="text" className='w-full border-2 border-black px-2 py-1 pb-2 mt-1 rounded-md' />
+                                <label className="text-[14px] text-red-600">{error?.jumlah_sks}</label>
                             </div>
                         </div>
                     </>
@@ -1145,7 +1208,7 @@ export const JumlahSks = ({ onHandleInput, datas, identify }) => {
     )
 }
 
-export const TotalSks = ({ onHandleInput, datas, identify }) => {
+export const TotalSks = ({ onHandleInput, datas, identify, error }) => {
     return (
         <>
             {
@@ -1153,10 +1216,11 @@ export const TotalSks = ({ onHandleInput, datas, identify }) => {
                     <>
                         <div id='formPengabdian' className="flex p-4 mt-2 relative">
                             <div className='w-1/4 mr-4 my-auto'>
-                                <label className='font-medium'>Total SKS</label>
+                                <label className='font-medium'>Total SKS</label><label className="text-red-600"> *</label>
                             </div>
                             <div className='w-3/4 relative'>
                                 <input onChange={(e) => onHandleInput(e)} name="totalSks" value={datas.totalSks} type="text" className='w-full border-2 border-black px-2 py-1 pb-2 mt-1 rounded-md' />
+                                <label className="text-[14px] text-red-600">{error?.total_sks}</label>
                             </div>
                         </div>
                     </>
@@ -1167,10 +1231,11 @@ export const TotalSks = ({ onHandleInput, datas, identify }) => {
                     <>
                         <div id='formPengabdian' className="flex p-4 mt-2 relative">
                             <div className='w-1/4 mr-4 my-auto'>
-                                <label className='font-medium'>Total SKS</label>
+                                <label className='font-medium'>Total SKS</label><label className="text-red-600"> *</label>
                             </div>
                             <div className='w-3/4 relative'>
                                 <input onChange={(e) => onHandleInput(e)} name="totalSks" value={datas.total_sks} type="text" className='w-full border-2 border-black px-2 py-1 pb-2 mt-1 rounded-md' />
+                                <label className="text-[14px] text-red-600">{error?.total_sks}</label>
                             </div>
                         </div>
                     </>
@@ -1194,7 +1259,7 @@ export const TotalSks = ({ onHandleInput, datas, identify }) => {
     )
 }
 
-export const BiayaKuliah = ({ onHandleInput, datas, identify }) => {
+export const BiayaKuliah = ({ onHandleInput, datas, identify, error }) => {
     return (
         <>
             {
@@ -1202,7 +1267,7 @@ export const BiayaKuliah = ({ onHandleInput, datas, identify }) => {
                     <>
                         <div id='formPengabdian' className="flex p-4 mt-2 relative">
                             <div className='w-1/4 mr-4 my-auto'>
-                                <label className='font-medium'>Biaya Kuliah</label>
+                                <label className='font-medium'>Biaya Kuliah</label><label className="text-red-600"> *</label>
                             </div>
                             <div className='w-3/4 relative'>
                                 <CurrencyFormat name="biayaKuliah" className='w-full border-2 border-black px-2 py-1 pb-2 rounded-md' value={datas.biayaKuliah} thousandSeparator={true} prefix={'Rp '} onValueChange={(e) => {
@@ -1212,6 +1277,7 @@ export const BiayaKuliah = ({ onHandleInput, datas, identify }) => {
                                     // value ie, 2223
                                     onHandleInput(e, "biayaKuliah")
                                 }} />
+                                <label className="text-[14px] text-red-600">{error?.biaya_kuliah}</label>
                             </div>
                         </div>
                     </>
@@ -1222,7 +1288,7 @@ export const BiayaKuliah = ({ onHandleInput, datas, identify }) => {
                     <>
                         <div id='formPengabdian' className="flex p-4 mt-2 relative">
                             <div className='w-1/4 mr-4 my-auto'>
-                                <label className='font-medium'>Biaya Kuliah</label>
+                                <label className='font-medium'>Biaya Kuliah</label><label className="text-red-600"> *</label>
                             </div>
                             <div className='w-3/4 relative'>
                                 <CurrencyFormat name="biayaKuliah" className='w-full border-2 border-black px-2 py-1 pb-2 rounded-md' value={datas.biaya_kuliah} thousandSeparator={true} prefix={'Rp '} onValueChange={(e) => {
@@ -1232,6 +1298,7 @@ export const BiayaKuliah = ({ onHandleInput, datas, identify }) => {
                                     // value ie, 2223
                                     onHandleInput(e, "biayaKuliah")
                                 }} />
+                                <label className="text-[14px] text-red-600">{error?.biaya_kuliah}</label>
                             </div>
                         </div>
                     </>
@@ -1255,7 +1322,7 @@ export const BiayaKuliah = ({ onHandleInput, datas, identify }) => {
     )
 }
 
-export const SuratTugas = ({ onHandleInput, datas, identify }) => {
+export const SuratTugas = ({ onHandleInput, datas, identify, error }) => {
     return (
         <>
             {
@@ -1304,7 +1371,7 @@ export const SuratTugas = ({ onHandleInput, datas, identify }) => {
     )
 }
 
-export const BeritaAcara = ({ onHandleInput, datas, identify }) => {
+export const BeritaAcara = ({ onHandleInput, datas, identify, error }) => {
     return (
         <>
             {
@@ -1353,7 +1420,7 @@ export const BeritaAcara = ({ onHandleInput, datas, identify }) => {
     )
 }
 
-export const StatusMahasiswa = ({ onHandleInput, datas, identify }) => {
+export const StatusMahasiswa = ({ onHandleInput, datas, identify, error }) => {
     return (
         <>
             <div className="flex px-4 py-2 w-full">
