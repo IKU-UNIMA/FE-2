@@ -35,7 +35,7 @@ export default function Sidebar() {
                                 <div className="w-[16px] h-[16px] mr-2">
                                     <ImTrophy className="w-full h-full" />
                                 </div>
-                                <li className="font-medium text-[14px]">Prestasi</li>
+                                <li className="font-medium text-[14px]">Prestasi Mahasiswa</li>
                             </div>
                         </Link>
                         <Link to={identify.role === "admin" && '/dashboard/admin/kampus-merdeka' || identify.role !== "admin" && "/dashboard/kampus-merdeka"}>

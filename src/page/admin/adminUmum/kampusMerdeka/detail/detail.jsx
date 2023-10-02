@@ -97,9 +97,9 @@ export default function DetailKMAdminUmum() {
                                 <div id='formPengabdian' className={identify === "detail" ? '' : 'flex p-4 mt-2 relative'}>
                                     <JumlahSks onHandleInput={null} datas={kmById} identify={identify} />
                                 </div>
-                                <div id='formPengabdian' className={identify === "detail" ? '' : 'flex p-4 mt-2 relative'}>
+                                {/* <div id='formPengabdian' className={identify === "detail" ? '' : 'flex p-4 mt-2 relative'}>
                                     <TotalSks onHandleInput={null} datas={kmById} identify={identify} />
-                                </div>
+                                </div> */}
                                 <div id='formPengabdian' className={identify === "detail" ? '' : 'flex p-4 mt-2 relative'}>
                                     <BiayaKuliah onHandleInput={null} datas={kmById} identify={identify} />
                                 </div>

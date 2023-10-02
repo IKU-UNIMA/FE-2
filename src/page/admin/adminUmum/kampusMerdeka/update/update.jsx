@@ -213,7 +213,7 @@ export default function UpdateKMAdminUmum() {
                                 <Ips onHandleInput={onHandleInput} datas={submitData} identify={identify} />
                                 <Ipk onHandleInput={onHandleInput} datas={submitData} identify={identify} />
                                 <JumlahSks onHandleInput={onHandleInput} datas={submitData} identify={identify} />
-                                <TotalSks onHandleInput={onHandleInput} datas={submitData} identify={identify} />
+                                {/* <TotalSks onHandleInput={onHandleInput} datas={submitData} identify={identify} /> */}
                                 <BiayaKuliah onHandleInput={onHandleInput} datas={submitData} identify={identify} />
                             </form>
 

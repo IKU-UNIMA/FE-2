@@ -213,7 +213,7 @@ export default function UpdateKM() {
                                 <Ips onHandleInput={onHandleInput} datas={submitData} identify={identify} error={errors} />
                                 <Ipk onHandleInput={onHandleInput} datas={submitData} identify={identify} error={errors} />
                                 <JumlahSks onHandleInput={onHandleInput} datas={submitData} identify={identify} error={errors} />
-                                <TotalSks onHandleInput={onHandleInput} datas={submitData} identify={identify} error={errors} />
+                                {/* <TotalSks onHandleInput={onHandleInput} datas={submitData} identify={identify} error={errors} /> */}
                                 <BiayaKuliah onHandleInput={onHandleInput} datas={submitData} identify={identify} error={errors} />
                             </form>
 

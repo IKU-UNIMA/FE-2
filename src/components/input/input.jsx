@@ -266,6 +266,8 @@ export const Smester = ({ onHandleInput, datas, identify, error }) => {
 }
 
 export const TingkatPrestasi = ({ onHandleInput, datas, identify, error }) => {
+    const [tingkatPrestasi, setTingkatPrestasi] = useState(['Nasional', 'Internasional'])
+
     return (
         <>
             {
@@ -276,7 +278,16 @@ export const TingkatPrestasi = ({ onHandleInput, datas, identify, error }) => {
                                 <label className='font-medium'>Tingkat Prestasi</label><label className="text-red-600"> *</label>
                             </div>
                             <div className='w-3/4 relative'>
-                                <input onChange={(e) => onHandleInput(e)} value={datas.tingkatPrestasi} name="tingkatPrestasi" type="text" placeholder="Prestasi" className='w-full border-2 border-black px-2 py-1 pb-2 mt-1 rounded-md' />
+                                {/* <input onChange={(e) => onHandleInput(e)} value={datas.tingkatPrestasi} name="tingkatPrestasi" type="text" placeholder="Prestasi" className='w-full border-2 border-black px-2 py-1 pb-2 mt-1 rounded-md' /> */}
+                                <select onChange={(e) => onHandleInput(e)} value={datas.tingkatPrestasi} name="tingkatPrestasi" className='w-full border-2 border-black px-2 py-1 pb-2 mt-1 rounded-md'>
+                                    <option value={null}>pilih</option>
+                                    {tingkatPrestasi?.map((data, i) => (
+                                        <>
+                                            <option value={data}>{data}</option>
+                                        </>
+                                    ))
+                                    }
+                                </select>
                                 <label className="text-[14px] text-red-600">{error.tingkat_prestasi}</label>
                             </div>
                         </div>
@@ -305,7 +316,16 @@ export const TingkatPrestasi = ({ onHandleInput, datas, identify, error }) => {
                                 <label className='font-medium'>Tingkat Prestasi</label><label className="text-red-600"> *</label>
                             </div>
                             <div className='w-3/4 relative'>
-                                <input onChange={(e) => onHandleInput(e)} value={datas.tingkat_prestasi} name="tingkatPrestasi" type="text" placeholder="Prestasi" className='w-full border-2 border-black px-2 py-1 pb-2 mt-1 rounded-md' />
+                                {/* <input onChange={(e) => onHandleInput(e)} value={datas.tingkat_prestasi} name="tingkatPrestasi" type="text" placeholder="Prestasi" className='w-full border-2 border-black px-2 py-1 pb-2 mt-1 rounded-md' /> */}
+                                <select onChange={(e) => onHandleInput(e)} value={datas.tingkat_prestasi} name="tingkatPrestasi" className='w-full border-2 border-black px-2 py-1 pb-2 mt-1 rounded-md'>
+                                    <option value={null}>pilih</option>
+                                    {tingkatPrestasi?.map((data, i) => (
+                                        <>
+                                            <option value={data}>{data}</option>
+                                        </>
+                                    ))
+                                    }
+                                </select>
                                 <label className="text-[14px] text-red-600">{error?.tingkat_prestasi}</label>
                             </div>
                         </div>
@@ -466,7 +486,7 @@ export const Penyelenggara = ({ onHandleInput, datas, identify, error }) => {
                                 <label className='font-medium'>Penyelenggara</label><label className="text-red-600"> *</label>
                             </div>
                             <div className='w-3/4 relative'>
-                                <input onChange={(e) => onHandleInput(e)} value={datas.penyelenggara} name="penyelenggara" type="text" placeholder="Penyelenggara" className='w-full border-2 border-black px-2 py-1 pb-2 mt-1 rounded-md' />
+                                <input onChange={(e) => onHandleInput(e)} value={datas.penyelenggara} name="penyelenggara" type="text" className='w-full border-2 border-black px-2 py-1 pb-2 mt-1 rounded-md' />
                                 <label className="text-[14px] text-red-600">{error?.penyelenggara}</label>
                             </div>
                         </div>
@@ -495,7 +515,7 @@ export const Penyelenggara = ({ onHandleInput, datas, identify, error }) => {
                                 <label className='font-medium'>Penyelenggara</label><label className="text-red-600"> *</label>
                             </div>
                             <div className='w-3/4 relative'>
-                                <input onChange={(e) => onHandleInput(e)} value={datas.penyelenggara} name="penyelenggara" type="text" placeholder="Penyelenggara" className='w-full border-2 border-black px-2 py-1 pb-2 mt-1 rounded-md' />
+                                <input onChange={(e) => onHandleInput(e)} value={datas.penyelenggara} name="penyelenggara" type="text" className='w-full border-2 border-black px-2 py-1 pb-2 mt-1 rounded-md' />
                                 <label className="text-[14px] text-red-600">{error?.penyelenggara}</label>
                             </div>
                         </div>
@@ -507,6 +527,8 @@ export const Penyelenggara = ({ onHandleInput, datas, identify, error }) => {
 }
 
 export const Peringkat = ({ onHandleInput, datas, identify, error }) => {
+    const [peringkat, setPeringkat] = useState(['1', '2', '3'])
+
     return (
         <>
             {
@@ -517,7 +539,16 @@ export const Peringkat = ({ onHandleInput, datas, identify, error }) => {
                                 <label className='font-medium'>Peringkat</label><label className="text-red-600"> *</label>
                             </div>
                             <div className='w-3/4 relative'>
-                                <input onChange={(e) => onHandleInput(e)} value={datas.peringkat} name="peringkat" type="text" placeholder="Peringkat" className='w-full border-2 border-black px-2 py-1 pb-2 mt-1 rounded-md' />
+                                {/* <input onChange={(e) => onHandleInput(e)} value={datas.peringkat} name="peringkat" type="text" placeholder="Peringkat" className='w-full border-2 border-black px-2 py-1 pb-2 mt-1 rounded-md' /> */}
+                                <select onChange={(e) => onHandleInput(e)} value={datas.peringkat} name="peringkat" className='w-full border-2 border-black px-2 py-1 pb-2 mt-1 rounded-md'>
+                                    <option value={null}>pilih</option>
+                                    {peringkat?.map((data, i) => (
+                                        <>
+                                            <option value={data}>{data}</option>
+                                        </>
+                                    ))
+                                    }
+                                </select>
                                 <label className="text-[14px] text-red-600">{error?.peringkat}</label>
                             </div>
                         </div>
@@ -546,7 +577,16 @@ export const Peringkat = ({ onHandleInput, datas, identify, error }) => {
                                 <label className='font-medium'>Peringkat</label><label className="text-red-600"> *</label>
                             </div>
                             <div className='w-3/4 relative'>
-                                <input onChange={(e) => onHandleInput(e)} value={datas.peringkat} name="peringkat" type="text" placeholder="Peringkat" className='w-full border-2 border-black px-2 py-1 pb-2 mt-1 rounded-md' />
+                                {/* <input onChange={(e) => onHandleInput(e)} value={datas.peringkat} name="peringkat" type="text" placeholder="Peringkat" className='w-full border-2 border-black px-2 py-1 pb-2 mt-1 rounded-md' /> */}
+                                <select onChange={(e) => onHandleInput(e)} value={datas.peringkat} name="peringkat" className='w-full border-2 border-black px-2 py-1 pb-2 mt-1 rounded-md'>
+                                    <option value={null}>pilih</option>
+                                    {peringkat?.map((data, i) => (
+                                        <>
+                                            <option value={data}>{data}</option>
+                                        </>
+                                    ))
+                                    }
+                                </select>
                                 <label className="text-[14px] text-red-600">{error?.peringkat}</label>
                             </div>
                         </div>
@@ -661,7 +701,7 @@ export const KategoriProgram = ({ onHandleInput, datas, identify, error }) => {
                     <>
                         <div id='formPengabdian' className="flex p-4 mt-2 relative">
                             <div className='w-1/4 mr-4 my-auto'>
-                                <label className='font-medium'>Kategori Program</label><label className="text-red-600"> *</label>
+                                <label className='font-medium'>Jenis Aktivitas</label><label className="text-red-600"> *</label>
                             </div>
                             <div className='w-3/4 relative'>
                                 <select onChange={(e) => onHandleInput(e)} value={datas.kategoriProgram} name="kategoriProgram" className='w-full border-2 border-black px-2 py-1 pb-2 mt-1 rounded-md'>
@@ -684,7 +724,7 @@ export const KategoriProgram = ({ onHandleInput, datas, identify, error }) => {
                     <>
                         <div id='formPengabdian' className="flex p-4 mt-2 relative">
                             <div className='w-1/4 mr-4 my-auto'>
-                                <label className='font-medium'>Kategori Program</label><label className="text-red-600"> *</label>
+                                <label className='font-medium'>Jenis Aktivitas</label><label className="text-red-600"> *</label>
                             </div>
                             <div className='w-3/4 relative'>
                                 <select onChange={(e) => onHandleInput(e)} value={datas.kategori_program?.id} name="kategoriProgram" className='w-full border-2 border-black px-2 py-1 pb-2 mt-1 rounded-md'>
@@ -707,7 +747,7 @@ export const KategoriProgram = ({ onHandleInput, datas, identify, error }) => {
                     <>
                         <div className="flex px-4 py-2 w-full">
                             <div className='w-1/4 mr-4'>
-                                <label className='font-medium'>Kategori Program</label>
+                                <label className='font-medium'>Jenis Aktivitas</label>
                             </div>
                             <div className='w-3/4'>
                                 <div>{datas.kategori_program?.nama}</div>
@@ -721,6 +761,7 @@ export const KategoriProgram = ({ onHandleInput, datas, identify, error }) => {
 }
 
 export const StatusKeikutsertaan = ({ onHandleInput, datas, identify, error }) => {
+    const [keikutsertaan, setKeikutsertaan] = useState(['Flagship', 'Mandiri'])
     return (
         <>
             {
@@ -731,7 +772,16 @@ export const StatusKeikutsertaan = ({ onHandleInput, datas, identify, error }) =
                                 <label className='font-medium'>Status Keikutsertaan</label><label className="text-red-600"> *</label>
                             </div>
                             <div className='w-3/4 relative'>
-                                <input onChange={(e) => onHandleInput(e)} name="statusKeikutsertaan" type="text" className='w-full border-2 border-black px-2 py-1 pb-2 mt-1 rounded-md' />
+                                {/* <input onChange={(e) => onHandleInput(e)} name="statusKeikutsertaan" type="text" className='w-full border-2 border-black px-2 py-1 pb-2 mt-1 rounded-md' /> */}
+                                <select onChange={(e) => onHandleInput(e)} name="statusKeikutsertaan" className='w-full border-2 border-black px-2 py-1 pb-2 mt-1 rounded-md'>
+                                    <option value={null}>pilih</option>
+                                    {keikutsertaan?.map((data, i) => (
+                                        <>
+                                            <option value={data}>{data}</option>
+                                        </>
+                                    ))
+                                    }
+                                </select>
                                 <label className="text-[14px] text-red-600">{error?.status_keikutsertaan}</label>
                             </div>
                         </div>
@@ -746,7 +796,16 @@ export const StatusKeikutsertaan = ({ onHandleInput, datas, identify, error }) =
                                 <label className='font-medium'>Status Keikutsertaan</label><label className="text-red-600"> *</label>
                             </div>
                             <div className='w-3/4 relative'>
-                                <input onChange={(e) => onHandleInput(e)} value={datas.status_keikutsertaan} name="statusKeikutsertaan" type="text" className='w-full border-2 border-black px-2 py-1 pb-2 mt-1 rounded-md' />
+                                {/* <input onChange={(e) => onHandleInput(e)} value={datas.status_keikutsertaan} name="statusKeikutsertaan" type="text" className='w-full border-2 border-black px-2 py-1 pb-2 mt-1 rounded-md' /> */}
+                                <select onChange={(e) => onHandleInput(e)} value={datas.status_keikutsertaan} name="statusKeikutsertaan" className='w-full border-2 border-black px-2 py-1 pb-2 mt-1 rounded-md'>
+                                    <option value={null}>pilih</option>
+                                    {keikutsertaan?.map((data, i) => (
+                                        <>
+                                            <option value={data}>{data}</option>
+                                        </>
+                                    ))
+                                    }
+                                </select>
                                 <label className="text-[14px] text-red-600">{error?.status_keikutsertaan}</label>
                             </div>
                         </div>

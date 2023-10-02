@@ -51,7 +51,7 @@ export default function DetailStatistikRector() {
 
                     <div>
                         <div className="p-6">
-                            <div onClick={(e) => navigate(-1)} className="inline-block">
+                            <div onClick={(e) => navigate(-1)} className="inline-block bg-white">
                                 <SecondaryButton textButton={'Kembali'} />
                             </div>
 
@@ -74,7 +74,7 @@ export default function DetailStatistikRector() {
 
                                 <div className="flex flex-col w-full ml-1 mr-1">
                                     <label className='text-[14px] font-medium tracking-[1px]'>Tahun</label>
-                                    <select onChange={(e) => setFiltered({ ...filtered, tahun: e.target.value })} value={filtered.tahun} name="tahun" className='w-full bg-[#8282821a] outline-none px-2 py-1 pb-2 mt-1 rounded-md'>
+                                    <select onChange={(e) => setFiltered({ ...filtered, tahun: e.target.value })} value={filtered.tahun} name="tahun" className='w-full bg-white border-2 border-black outline-none px-2 py-1 pb-2 mt-1 rounded-md'>
                                         <option value={0}>Semua</option>
                                         {tahun?.map((data) => (
                                             <>
