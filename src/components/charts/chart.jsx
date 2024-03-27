@@ -589,9 +589,7 @@ export const ChartByDashboard = ({ tahun, identify }) => {
                 id="persentageTotal"
                 className="w-full flex flex-col shadow-lg px-4 py-8 mx-auto justify-center items-center rounded-lg bg-white"
               >
-                <h1 className="text-[20px] font-medium">
-                  Total Kampus Merdeka
-                </h1>
+                <h1 className="text-[20px] font-medium">Total MBKM</h1>
                 <h1 className="font-medium text-[24px]">
                   {total.kampusMerdeka.total}
                 </h1>
